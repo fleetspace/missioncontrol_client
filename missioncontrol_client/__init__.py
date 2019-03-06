@@ -103,7 +103,7 @@ class MCAPI(object):
 
     def get_satellite(self, hwid):
         return self.getj(
-            f"/api/v0/satellites/{hwid}"
+            f"/api/v0/satellites/{hwid}/"
         )
 
     def get_satellites(self):
