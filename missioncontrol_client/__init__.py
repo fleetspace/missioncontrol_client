@@ -51,6 +51,10 @@ class MCAPI(object):
         passes = self.getj("/api/v0/passes/", params=kwargs)
         return passes
 
+    def get_pass(self, uuid, **kwargs):
+        _pass = self.getj(f"/api/v0/passes/{uuid}/", params=kwargs)
+        return _pass
+
     def get_accesses(self, **kwargs):
         accesses = self.getj("/api/v0/accesses/", params=kwargs)
         return accesses
@@ -123,10 +127,22 @@ class MCAPI(object):
             params=kwargs,
         )
 
+    def get_task_stack(self, uuid, **kwargs):
+        return self.getj(
+            f'/api/v0/task-stacks/{uuid}/',
+            params=kwargs
+        )
+
     def put_task_stack(self, uuid, **kwargs):
         return self.putj(
             f'/api/v0/task-stacks/{uuid}/',
             json=kwargs,
+        )
+
+    def get_pass_task_stack(self, uuid, **kwargs):
+        return self.getj(
+            f'/api/v0/passes/{uuid}/task-stack/',
+            json=kwargs
         )
 
     def login(self, username=None, password=None, jwt=None):
