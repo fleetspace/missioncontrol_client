@@ -211,3 +211,12 @@ def handle_default_args(args):
         args.mc_api.login(jwt=args.jwt)
     else:
         args.mc_api.login(username=args.username, password=args.password)
+
+def from_environ():
+    mc_api = MCAPI(os.environ['MC_BASE'])
+    if os.environ.get('MC_JWT'):
+        mc_api.login(jwt=os.environ['MC_JWT'])
+    else:
+        mc_api.login(username=os.environ['MC_USERNAME'], password=os.environ['MC_PASSWORD'])
+
+    return mc_api
