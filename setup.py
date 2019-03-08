@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import inspect
-import os
-import sys
 
 from setuptools import find_packages, setup
-from setuptools.command.test import test as TestCommand
 
 
 install_requires = [
@@ -24,7 +20,7 @@ def readme():
 setup(
     name='missioncontrol-client',
     packages=find_packages(),
-    version='0.0.1',
+    version='0.0.2',
     description='python client for the missioncontrol api',
     long_description=readme(),
     author='Fleet Space Technologies',

@@ -51,6 +51,10 @@ class MCAPI(object):
         passes = self.getj("/api/v0/passes/", params=kwargs)
         return passes
 
+    def get_pass(self, uuid, **kwargs):
+        _pass = self.getj(f"/api/v0/passes/{uuid}/", params=kwargs)
+        return _pass
+
     def get_accesses(self, **kwargs):
         accesses = self.getj("/api/v0/accesses/", params=kwargs)
         return accesses
@@ -103,7 +107,7 @@ class MCAPI(object):
 
     def get_satellite(self, hwid):
         return self.getj(
-            f"/api/v0/satellites/{hwid}"
+            f"/api/v0/satellites/{hwid}/"
         )
 
     def get_satellites(self):
@@ -123,10 +127,22 @@ class MCAPI(object):
             params=kwargs,
         )
 
+    def get_task_stack(self, uuid, **kwargs):
+        return self.getj(
+            f'/api/v0/task-stacks/{uuid}/',
+            params=kwargs
+        )
+
     def put_task_stack(self, uuid, **kwargs):
         return self.putj(
             f'/api/v0/task-stacks/{uuid}/',
             json=kwargs,
+        )
+
+    def get_pass_task_stack(self, uuid, **kwargs):
+        return self.getj(
+            f'/api/v0/passes/{uuid}/task-stack/',
+            json=kwargs
         )
 
     def login(self, username=None, password=None, jwt=None):
@@ -195,3 +211,12 @@ def handle_default_args(args):
         args.mc_api.login(jwt=args.jwt)
     else:
         args.mc_api.login(username=args.username, password=args.password)
+
+def from_environ():
+    mc_api = MCAPI(os.environ['MC_BASE'])
+    if os.environ.get('MC_JWT'):
+        mc_api.login(jwt=os.environ['MC_JWT'])
+    else:
+        mc_api.login(username=os.environ['MC_USERNAME'], password=os.environ['MC_PASSWORD'])
+
+    return mc_api
