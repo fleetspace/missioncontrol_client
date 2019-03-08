@@ -212,8 +212,10 @@ def handle_default_args(args):
     else:
         args.mc_api.login(username=args.username, password=args.password)
 
-def from_environ():
+def from_environ(ignore_ssl=False):
     mc_api = MCAPI(os.environ['MC_BASE'])
+    if ignore_ssl:
+        mc_api.s.verify = False
     if os.environ.get('MC_JWT'):
         mc_api.login(jwt=os.environ['MC_JWT'])
     else:
