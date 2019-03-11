@@ -20,7 +20,7 @@ def readme():
 setup(
     name='missioncontrol-client',
     packages=find_packages(),
-    version='0.0.2',
+    version='0.0.3',
     description='python client for the missioncontrol api',
     long_description=readme(),
     author='Fleet Space Technologies',
